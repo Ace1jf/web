@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venios Clothing - Tienda Oficial</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuración de la fuente Inter y Tailwind -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+            color: #1a1a1a;
+        }
+        /* Estilos para el scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #aaa;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
+        /* Estilo específico para el botón de WhatsApp (color verde oficial) */
+        .whatsapp-btn {
+            background-color: #25D366;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(37, 211, 102, 0.5), 0 4px 6px -2px rgba(37, 211, 102, 0.2);
+        }
+    </style>
+    <!-- Iconos de Heroicons (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen">
+
+    <!-- BARRA DE NAVEGACIÓN SUPERIOR (Header) -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center border-b border-gray-100">
+            
+            <!-- Logo de la Marca -->
+            <div class="text-2xl font-black tracking-widest uppercase">
+                <a href="#inicio" class="flex items-center space-x-2">
+                    <!-- EDICIÓN: Aquí debes colocar la RUTA de tu logo real dentro de la carpeta 'imagenes/' -->
+                    <img src="imagenes/logo.png" alt="Venios Logo" class="h-8 w-8 rounded-full hidden sm:block" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/40x40/1a1a1a/ffffff?text=V';">
+                    <span class="text-gray-900">VENIOS</span>
+                </a>
+            </div>
+
+            <!-- Menú de Navegación (Centrado) -->
+            <nav class="hidden md:flex space-x-8 text-sm font-medium tracking-wider">
+                <a href="#catalogo" class="text-gray-700 hover:text-black transition duration-200 uppercase">Catálogo</a>
+                <a href="#quienes-somos" class="text-gray-700 hover:text-black transition duration-200 uppercase">Quiénes Somos</a>
+                <a href="#contacto" class="text-gray-700 hover:text-black transition duration-200 uppercase">Contacto</a>
+            </nav>
+
+            <!-- Íconos de Utilidad (Derecha) -->
+            <div class="flex items-center space-x-4">
+                <!-- Buscador (Icono) -->
+                <button class="text-gray-600 hover:text-black p-2 rounded-full transition duration-200 hidden sm:block">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                </button>
+                
+                <!-- Carrito de Compras (Icono y Contador) -->
+                <div class="relative">
+                    <button id="cart-button" class="text-gray-600 hover:text-black p-2 rounded-full transition duration-200" aria-label="Abrir Carrito">
+                        <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                    </button>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-black text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full transition duration-300 transform scale-0">0</span>
+                </div>
+                
+                <!-- Menú Móvil (Hamburguesa) -->
+                <button id="menu-button" class="md:hidden text-gray-600 hover:text-black p-2 rounded-full transition duration-200" aria-label="Abrir Menú Móvil">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú Móvil Desplegable -->
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white z-40 p-6 transition-transform transform translate-x-full">
+        <div class="flex justify-end">
+            <button id="close-menu-button" class="text-gray-900 p-2">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+        </div>
+        <nav class="flex flex-col space-y-6 mt-8 text-xl font-semibold tracking-wider">
+            <a href="#catalogo" class="text-gray-700 hover:text-black uppercase" onclick="toggleMobileMenu()">Catálogo</a>
+            <a href="#quienes-somos" class="text-gray-700 hover:text-black uppercase" onclick="toggleMobileMenu()">Quiénes Somos</a>
+            <a href="#contacto" class="text-gray-700 hover:text-black uppercase" onclick="toggleMobileMenu()">Contacto</a>
+        </nav>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container mx-auto px-4 py-8">
+
+        <!-- SECCIÓN DE INICIO (Hero/Novedades) -->
+        <section id="inicio" class="mb-16">
+            <div class="bg-gray-100 rounded-2xl p-6 md:p-12 lg:p-16 flex flex-col md:flex-row items-center justify-between shadow-lg">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight">
+                        La <span class="text-black">Esencia</span> del Streetwear.
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-6 max-w-lg">
+                        Descubre la nueva colección de Venios Clothing. Diseño minimalista, comodidad oversized y actitud urbana.
+                    </p>
+                    <a href="#catalogo" class="inline-block bg-black text-white px-8 py-3 rounded-xl text-lg font-semibold hover:bg-gray-800 transition duration-300 transform hover:scale-[1.01] shadow-lg">
+                        Ver Catálogo
+                    </a>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <!-- EDICIÓN: Aquí debes colocar la RUTA de tu imagen principal dentro de la carpeta 'imagenes/' -->
+                    <img src="imagenes/hero.jpg" alt="Hoodie o Camiseta Oversized destacada" class="rounded-xl shadow-2xl h-96 w-auto object-cover"
+                         onerror="this.onerror=null;this.src='https://placehold.co/400x500/1a1a1a/ffffff?text=HERO';">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE CATÁLOGO / PRODUCTOS -->
+        <section id="catalogo" class="mb-16">
+            <h2 class="text-4xl font-extrabold text-center mb-12 uppercase tracking-wider">Catálogo</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="product-list">
+                <!-- Los productos se inyectarán aquí con JavaScript -->
+            </div>
+        </section>
+
+        <!-- SECCIÓN QUIÉNES SOMOS -->
+        <section id="quienes-somos" class="mb-16 bg-white p-8 md:p-12 rounded-2xl shadow-xl">
+            <h2 class="text-4xl font-extrabold text-center mb-10 uppercase tracking-wider">Quiénes Somos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <div class="space-y-6 text-gray-700 text-lg">
+                    <p>
+                        Venios Clothing nace por 3 personas. Fundada en la idea de que la ropa no solo debe vestir, sino también contar como te sientes, nos especializamos en prendas oversized que desafían las convenciones.
+                    </p>
+                    <p>
+                        Nuestra filosofía se basa en tres pilares: Diseño Unicos, Calidad Premium y Originalidad. Cada pieza, desde la selección de telas hasta el estampado final, es un testimonio de nuestro compromiso con la excelencia.
+                    </p>
+                    <p>
+                        Creemos en el poder de la sencillez. Nuestros diseños en su mayoría monocromáticos (negro y blanco), con gráficos sutiles pero impactantes, buscan crear un lienzo para tu propia expresión. ¡Únete al movimiento Venios!
+                    </p>
+                </div>
+                <div class="flex justify-center">
+                     <!-- EDICIÓN: Aquí debes colocar la RUTA de tu imagen de Quiénes Somos dentro de la carpeta 'imagenes/' -->
+                     <img src="imagenes/about.jpg" alt="Imagen de la marca Venios Clothing" class="rounded-full shadow-2xl h-80 w-80 object-cover"
+                          onerror="this.onerror=null;this.src='https://placehold.co/400x400/1a1a1a/ffffff?text=ABOUT';">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE CONTACTO (Sencilla) -->
+        <section id="contacto" class="mb-16">
+            <h2 class="text-4xl font-extrabold text-center mb-12 uppercase tracking-wider">Contáctanos</h2>
+            <div class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+                <p class="text-center text-lg text-gray-600 mb-6">¿Tienes preguntas? Envíanos un mensaje y te responderemos a la brevedad.</p>
+                <form class="space-y-4">
+                    <div>
+                        <input type="text" placeholder="Tu Nombre" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition duration-200" required>
+                    </div>
+                    <div>
+                        <input type="email" placeholder="Tu Email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition duration-200" required>
+                    </div>
+                    <div>
+                        <textarea placeholder="Tu Mensaje" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition duration-200" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-black text-white p-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300">
+                        Enviar Mensaje
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-10">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-12 mb-6 text-sm">
+                <a href="#" class="hover:text-gray-400 transition duration-200">Términos y Condiciones</a>
+                <a href="#" class="hover:text-gray-400 transition duration-200">Política de Privacidad</a>
+                <a href="#" class="hover:text-gray-400 transition duration-200">Envíos y Devoluciones</a>
+            </div>
+            <p class="text-sm text-gray-400">&copy; 2025 Venios Clothing. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <a 
+        href="https://wa.me/message/GXUT2KL4MU3OK1" 
+        target="_blank" 
+        class="whatsapp-btn fixed bottom-6 right-6 p-4 rounded-full text-white shadow-xl z-50 transition-all duration-300 ease-in-out"
+        aria-label="Contactar por WhatsApp"
+    >
+        <!-- Icono SVG de WhatsApp limpio y oficial -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="white">
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 3.31 1.6 6.22 4.09 7.95l-.28 1.05 1.05-.28C7.8 20.4 12 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm3.32 14.8c-.18.3-.74.65-1.29.93-.55.28-1.22.42-1.92.42-.7 0-1.42-.14-1.97-.42-.55-.28-1.11-.63-1.29-.93-.18-.3-.26-.64-.26-1.02s.14-.72.26-1.02c.18-.3.74-.65 1.29-.93.55-.28 1.22-.42 1.92-.42.7 0 1.42.14 1.97.42.55.28 1.11.63 1.29.93.18.3.26.64.26 1.02s-.14.72-.26 1.02zM17.5 7.5c-.32-.16-2-.97-2.31-1.07-.31-.1-.53-.15-.75.16-.22.31-.85 1.07-1.04 1.28-.19.22-.38.24-.7.08-.32-.16-1.34-.5-2.55-1.58-1.06-.94-1.78-2.1-2-2.43-.22-.34-.02-.51.13-.67.14-.15.31-.34.46-.51.15-.17.2-.34.3-.56.1-.22.05-.4-.01-.56-.05-.15-.31-.75-.42-.99-.11-.22-.22-.18-.3-.18s-.16-.01-.24-.01h-.44c-.22 0-.6.09-.92.42-.32.33-1.22 1.2-1.22 2.92s1.25 2.5 1.42 2.71c.17.21 2.44 3.73 5.92 5.11 3.5.76 3.79.62 4.46.58.67-.04 2.1-.85 2.4-1.68.3-.83.3-1.54.22-1.68-.08-.15-.31-.24-.63-.39z"/>
+        </svg>
+    </a>
+
+    <!-- MODAL DEL CARRITO DE COMPRAS -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden transition-opacity duration-300 ease-in-out">
+        <div class="absolute right-0 top-0 w-full max-w-md h-full bg-white shadow-2xl p-6 flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out">
+            
+            <!-- Header (siempre visible) -->
+            <div class="flex justify-between items-center pb-4 border-b border-gray-200">
+                <h3 class="text-2xl font-bold" id="modal-title">Tu Carrito</h3>
+                <button id="close-modal-button" class="text-gray-500 hover:text-black p-2 rounded-full" aria-label="Cerrar Carrito">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- 1. VISTA DEL CARRITO (cart-view) -->
+            <div id="cart-view" class="flex-grow flex flex-col transition-opacity duration-300">
+                <div id="cart-items-container" class="flex-grow overflow-y-auto py-4 space-y-4">
+                    <!-- Los elementos del carrito se inyectarán aquí -->
+                    <p id="empty-cart-message" class="text-center text-gray-500 mt-10">El carrito está vacío.</p>
+                </div>
+
+                <div class="pt-4 border-t border-gray-200">
+                    <div class="flex justify-between items-center text-lg font-bold mb-4">
+                        <span>Total:</span>
+                        <span id="cart-total">$0.00</span>
+                    </div>
+                    <button id="proceed-to-checkout-button" class="w-full bg-black text-white p-3 rounded-xl font-semibold hover:bg-gray-800 transition duration-300">
+                        Proceder al Pago
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. VISTA DE PAGO (payment-view) - Inicialmente oculta -->
+            <div id="payment-view" class="flex-grow overflow-y-auto py-4 space-y-6 hidden">
+                
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-yellow-800">
+                    <p class="font-bold mb-1">Paso 1: Realiza el Pago Móvil</p>
+                    <p class="text-sm">Por favor, realiza el pago por el **monto exacto** y luego envíanos el comprobante por WhatsApp.</p>
+                </div>
+
+                <div class="p-6 bg-gray-50 rounded-xl border border-gray-200 shadow-inner space-y-4">
+                    <h4 class="text-xl font-bold text-center text-black border-b pb-2">RESUMEN DE PAGO</h4>
+                    
+                    <!-- Monto a pagar -->
+                    <div class="flex justify-between items-center font-semibold text-lg p-2 bg-white rounded-lg shadow-sm">
+                        <span>Monto a Cancelar:</span>
+                        <span class="text-red-600 font-extrabold text-2xl" id="payment-amount">$0.00</span>
+                    </div>
+                    
+                    <!-- Número de Pedido -->
+                    <div class="flex justify-between items-center text-base p-2 bg-white rounded-lg shadow-sm">
+                        <span>Número de Pedido:</span>
+                        <span class="font-mono text-black font-bold" id="order-id">#N/A</span>
+                    </div>
+                    
+                    <hr class="border-gray-300 my-4">
+                    
+                    <h4 class="text-lg font-bold mt-4">DATOS DE PAGO MÓVIL 🏦</h4>
+                    <div class="text-sm space-y-2 bg-white p-4 rounded-lg border border-green-200">
+                        <p><span class="font-medium text-gray-600">Banco:</span> <span class="font-bold text-black" id="payment-bank">(0104) Banco Venezolano de Crédito</span></p>
+                        <p><span class="font-medium text-gray-600">C.I. / R.I.F.:</span> <span class="font-bold text-black" id="payment-ci">32.270.735</span></p>
+                        <p><span class="font-medium text-gray-600">Teléfono:</span> <span class="font-bold text-black" id="payment-phone">0424-9305395</span></p>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-blue-100 rounded-xl border border-blue-300 space-y-3">
+                    <h4 class="font-bold text-blue-800 flex items-center space-x-2">
+                        <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                        <span>Instrucciones Finales (Importante)</span>
+                    </h4>
+                    <ul class="list-disc list-inside text-sm text-blue-700 space-y-2">
+                        <li>**Capture (Comprobante):** Toma una captura de pantalla del pago móvil exitoso.</li>
+                        <li>**Descripción del Pago:** **DEBES** colocar el **Número de Pedido** (<span class="font-mono font-bold" id="instruction-order-id">#N/A</span>) en la descripción/referencia del pago móvil.</li>
+                        <li>**Envío:** Haz clic en el botón de abajo para enviar la captura y el número de pedido a nuestro WhatsApp.</li>
+                    </ul>
+                </div>
+                
+                <a 
+                    href="https://wa.me/message/GXUT2KL4MU3OK1" 
+                    target="_blank" 
+                    class="w-full whatsapp-btn p-3 rounded-xl text-white font-semibold flex items-center justify-center space-x-2 mt-4 shadow-md hover:shadow-lg"
+                    aria-label="Enviar Comprobante por WhatsApp"
+                >
+                    <i data-lucide="whatsapp" class="w-5 h-5">
+                         <!-- SVG para el icono de WhatsApp, ya que lucide no lo tiene por defecto -->
+                         <path d="M17.5 7.5c-.32-.16-2-.97-2.31-1.07-.31-.1-.53-.15-.75.16-.22.31-.85 1.07-1.04 1.28-.19.22-.38.24-.7.08-.32-.16-1.34-.5-2.55-1.58-1.06-.94-1.78-2.1-2-2.43-.22-.34-.02-.51.13-.67.14-.15.31-.34.46-.51.15-.17.2-.34.3-.56.1-.22.05-.4-.01-.56-.05-.15-.31-.75-.42-.99-.11-.22-.22-.18-.3-.18s-.16-.01-.24-.01h-.44c-.22 0-.6.09-.92.42-.32.33-1.22 1.2-1.22 2.92s1.25 2.5 1.42 2.71c.17.21 2.44 3.73 5.92 5.11 3.5.76 3.79.62 4.46.58.67-.04 2.1-.85 2.4-1.68.3-.83.3-1.54.22-1.68-.08-.15-.31-.24-.63-.39z" fill="white"/>
+                    </i>
+                    <span>Enviar Comprobante y Pedido</span>
+                </a>
+                
+                <button id="back-to-cart-button" class="w-full text-gray-600 p-2 mt-2 hover:text-black transition duration-200">
+                    Volver al Carrito
+                </button>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <script>
+        // Inicializar Lucide Icons
+        lucide.createIcons();
+
+        // --- Configuración Inicial ---
+        const CART_KEY = 'venios_cart';
+        const OVERSIZED_PRICE = 18.00;
+        
+        // --- Referencias DOM ---
+        const cartButton = document.getElementById('cart-button');
+        const cartModal = document.getElementById('cart-modal');
+        const closeModalButton = document.getElementById('close-modal-button');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const cartCountDisplay = document.getElementById('cart-count');
+        const cartTotalDisplay = document.getElementById('cart-total');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const productListContainer = document.getElementById('product-list');
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const cartModalContent = cartModal.querySelector('div.transform');
+        
+        // Referencias a las nuevas vistas
+        const cartView = document.getElementById('cart-view');
+        const paymentView = document.getElementById('payment-view');
+        const modalTitle = document.getElementById('modal-title');
+        const proceedToCheckoutButton = document.getElementById('proceed-to-checkout-button');
+        const backToCartButton = document.getElementById('back-to-cart-button');
+
+        // --- Datos de Productos ---
+        // EDICIÓN CRÍTICA: Aquí debes reemplazar los valores de 'image' con las RUTAS de tus camisetas dentro de la carpeta 'imagenes/'.
+        // Asegúrate de que los nombres de archivo coincidan con los que tengas en tu carpeta "imagenes".
+        const products = [
+            { id: 1, name: "Camiseta 'WHAT IF?'", price: OVERSIZED_PRICE, 
+              // EDICIÓN: CAMISETA 1
+              image: 'imagenes/P4.png', 
+              description: "Negra oversized, estampado 'WHAT IF?' en la espalda." },
+              
+            { id: 2, name: "Camiseta 'INSANE'", price: OVERSIZED_PRICE, 
+              // EDICIÓN: CAMISETA 2
+              image: 'imagenes/P1.png', 
+              description: "Negra oversized, estampado de cara en la espalda." },
+              
+            { id: 3, name: "Camiseta 'VENIO1'", price: OVERSIZED_PRICE, 
+              // EDICIÓN: CAMISETA 3
+              image: 'imagenes/P2.png', 
+              description: "Blanca oversized, diseño Wallpaper en la espalda." },
+              
+            { id: 4, name: "Camiseta 'WHY ME'", price: OVERSIZED_PRICE, 
+              // EDICIÓN: CAMISETA 4
+              image: 'imagenes/P3.png', 
+              description: "Blanca oversized, diseño 'WHY ME' minimalista." },
+        ];
+
+        // --- Funciones del Carrito ---
+
+        const loadCart = () => {
+            try {
+                const storedCart = localStorage.getItem(CART_KEY);
+                return storedCart ? JSON.parse(storedCart) : [];
+            } catch (error) {
+                console.error("Error al cargar el carrito:", error);
+                return [];
+            }
+        };
+
+        const saveCart = (cart) => {
+            try {
+                localStorage.setItem(CART_KEY, JSON.stringify(cart));
+            } catch (error) {
+                console.error("Error al guardar el carrito:", error);
+            }
+        };
+
+        const addToCart = (productId) => {
+            let cart = loadCart();
+            const product = products.find(p => p.id === productId);
+
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            saveCart(cart);
+            updateCartUI();
+            showNotification(`"${product.name}" añadido al carrito.`);
+        };
+        
+        const updateQuantity = (productId, newQuantity) => {
+            let cart = loadCart();
+            let quantity = parseInt(newQuantity);
+
+            if (quantity <= 0 || isNaN(quantity)) {
+                // Eliminar si la cantidad es 0 o inválida
+                cart = cart.filter(item => item.id !== productId);
+            } else {
+                const item = cart.find(item => item.id === productId);
+                if (item) {
+                    item.quantity = quantity;
+                }
+            }
+
+            saveCart(cart);
+            updateCartUI();
+        };
+
+        const removeItem = (productId) => {
+            let cart = loadCart();
+            const productName = cart.find(item => item.id === productId)?.name || 'Artículo';
+
+            cart = cart.filter(item => item.id !== productId);
+            saveCart(cart);
+            updateCartUI();
+            showNotification(`"${productName}" eliminado del carrito.`, 'alert');
+        };
+
+        const updateCartUI = () => {
+            const cart = loadCart();
+            let totalItems = 0;
+            let totalAmount = 0;
+            
+            // Limpiar el contenedor de ítems
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                cartCountDisplay.classList.remove('scale-100');
+                proceedToCheckoutButton.disabled = true;
+                proceedToCheckoutButton.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                emptyCartMessage.style.display = 'none';
+                proceedToCheckoutButton.disabled = false;
+                proceedToCheckoutButton.classList.remove('opacity-50', 'cursor-not-allowed');
+
+                cart.forEach(item => {
+                    totalItems += item.quantity;
+                    totalAmount += item.quantity * item.price;
+                    
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'flex items-center justify-between p-3 border-b border-gray-100 last:border-b-0 transition duration-300 hover:bg-gray-50 rounded-lg';
+                    itemElement.innerHTML = `
+                        <div class="flex items-center space-x-4">
+                            <!-- Usa la ruta de la imagen local del producto -->
+                            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-md" 
+                                 onerror="this.onerror=null;this.src='https://placehold.co/60x60/1a1a1a/ffffff?text=V';">
+                            <div>
+                                <h4 class="font-semibold text-gray-900">${item.name}</h4>
+                                <p class="text-sm text-gray-600">$${item.price.toFixed(2)}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <input 
+                                type="number" 
+                                min="1" 
+                                value="${item.quantity}" 
+                                class="w-14 text-center border border-gray-300 rounded-lg p-1 text-sm quantity-input"
+                                data-product-id="${item.id}"
+                                onchange="updateQuantity(${item.id}, this.value)"
+                            >
+                            <p class="font-semibold w-16 text-right">$${(item.price * item.quantity).toFixed(2)}</p>
+                            <button 
+                                class="text-red-500 hover:text-red-700 remove-item-button" 
+                                data-product-id="${item.id}"
+                                aria-label="Eliminar ${item.name}"
+                            >
+                                <i data-lucide="trash-2" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(itemElement);
+                });
+                
+                lucide.createIcons();
+
+                cartItemsContainer.querySelectorAll('.remove-item-button').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const productId = parseInt(e.currentTarget.dataset.productId);
+                        removeItem(productId);
+                    });
+                });
+
+                cartItemsContainer.querySelectorAll('.quantity-input').forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        const productId = parseInt(e.target.dataset.productId);
+                        updateQuantity(productId, e.target.value);
+                    });
+                });
+                
+                cartCountDisplay.classList.add('scale-100');
+            }
+
+            // Actualizar contador y total
+            cartCountDisplay.textContent = totalItems;
+            cartTotalDisplay.textContent = `$${totalAmount.toFixed(2)}`;
+        };
+
+        // --- Funciones de Checkout (Pago Móvil) ---
+        
+        /**
+         * Genera un ID de pedido simple y único.
+         * @returns {string} ID del pedido (e.g., VENIOS-123456).
+         */
+        const generateOrderId = () => {
+            // Genera una parte aleatoria de 6 dígitos
+            const randomPart = Math.floor(100000 + Math.random() * 900000);
+            return `VENIOS-${randomPart}`;
+        };
+
+        /**
+         * Cambia entre la vista del carrito y la vista de pago.
+         * @param {string} viewName - 'cart' o 'payment'.
+         */
+        const switchModalView = (viewName) => {
+            if (viewName === 'cart') {
+                cartView.classList.remove('hidden');
+                paymentView.classList.add('hidden');
+                modalTitle.textContent = 'Tu Carrito';
+            } else if (viewName === 'payment') {
+                cartView.classList.add('hidden');
+                paymentView.classList.remove('hidden');
+                modalTitle.textContent = 'Finalizar Pago';
+            }
+        };
+
+        /**
+         * Prepara y muestra la vista de pago.
+         */
+        const proceedToCheckout = () => {
+            const cart = loadCart();
+            if (cart.length === 0) {
+                showNotification("El carrito está vacío. Añade productos primero.", 'alert');
+                return;
+            }
+            
+            // 1. Calcular el monto total
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            // 2. Generar el Número de Pedido
+            const orderId = generateOrderId();
+            
+            // 3. Actualizar elementos de la vista de pago
+            document.getElementById('payment-amount').textContent = `$${totalAmount.toFixed(2)}`;
+            document.getElementById('order-id').textContent = `#${orderId}`;
+            document.getElementById('instruction-order-id').textContent = `#${orderId}`; 
+
+            // 4. Cambiar a la vista de pago
+            switchModalView('payment');
+        };
+
+
+        // --- Funciones de Renderizado ---
+
+        const renderProducts = () => {
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 transform hover:shadow-xl hover:-translate-y-1';
+                
+                // Usamos la RUTA relativa del producto o un placeholder de fallback
+                productCard.innerHTML = `
+                    <div class="h-64 bg-gray-100 flex items-center justify-center p-4">
+                        <!-- Usa la ruta de la imagen local del producto -->
+                        <img 
+                            src="${product.image}" 
+                            alt="${product.name}" 
+                            class="object-contain h-full w-full transition duration-500 hover:scale-[1.05]"
+                            onerror="this.onerror=null;this.src='https://placehold.co/300x400/999/fff?text=Imagen+No+Disp.'"
+                        >
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">${product.name}</h3>
+                        <p class="text-gray-600 text-sm mb-3">${product.description}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-extrabold text-black">$${product.price.toFixed(2)}</span>
+                            <button 
+                                class="add-to-cart-button bg-black text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition duration-300 flex items-center space-x-1"
+                                data-product-id="${product.id}"
+                            >
+                                <i data-lucide="plus" class="w-4 h-4"></i>
+                                <span>Añadir</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productListContainer.appendChild(productCard);
+            });
+            
+            lucide.createIcons();
+            
+            document.querySelectorAll('.add-to-cart-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.currentTarget.dataset.productId);
+                    addToCart(productId);
+                });
+            });
+        };
+
+        // --- Funciones de Eventos de la Interfaz ---
+
+        const toggleCartModal = () => {
+            const isHidden = cartModal.classList.contains('hidden');
+            if (isHidden) {
+                cartModal.classList.remove('hidden');
+                setTimeout(() => {
+                    cartModal.classList.add('opacity-100');
+                    cartModalContent.classList.remove('translate-x-full');
+                    switchModalView('cart'); // Asegurar vista de carrito al abrir
+                }, 10); 
+                updateCartUI(); 
+            } else {
+                cartModal.classList.remove('opacity-100');
+                cartModalContent.classList.add('translate-x-full');
+                setTimeout(() => {
+                    cartModal.classList.add('hidden');
+                    switchModalView('cart'); // Restablecer vista de carrito al cerrar
+                }, 300); 
+            }
+        };
+        
+        const toggleMobileMenu = () => {
+            const isOpen = mobileMenu.classList.contains('translate-x-0');
+            if (isOpen) {
+                mobileMenu.classList.remove('translate-x-0');
+                mobileMenu.classList.add('translate-x-full');
+                setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+            } else {
+                mobileMenu.classList.remove('hidden');
+                setTimeout(() => {
+                    mobileMenu.classList.remove('translate-x-full');
+                    mobileMenu.classList.add('translate-x-0');
+                }, 10);
+            }
+        };
+
+        const showNotification = (message, type = 'success') => {
+            let notification = document.getElementById('app-notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.id = 'app-notification';
+                notification.className = 'fixed bottom-5 left-1/2 transform -translate-x-1/2 p-4 rounded-xl shadow-2xl transition-opacity duration-300 opacity-0 z-[60] text-white font-medium';
+                document.body.appendChild(notification);
+            }
+
+            const bgColor = type === 'alert' ? 'bg-red-600' : 'bg-green-600';
+            notification.className = `fixed bottom-5 left-1/2 transform -translate-x-1/2 p-4 rounded-xl shadow-2xl transition-opacity duration-300 opacity-0 z-[60] text-white font-medium ${bgColor}`;
+            notification.innerHTML = message;
+
+            setTimeout(() => {
+                notification.classList.add('opacity-100');
+            }, 50);
+
+            setTimeout(() => {
+                notification.classList.remove('opacity-100');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        };
+
+
+        // --- Inicialización ---
+        window.onload = () => {
+            renderProducts();
+            updateCartUI(); 
+            
+            // Event Listeners
+            cartButton.addEventListener('click', toggleCartModal);
+            closeModalButton.addEventListener('click', toggleCartModal);
+            menuButton.addEventListener('click', toggleMobileMenu);
+            closeMenuButton.addEventListener('click', toggleMobileMenu);
+
+            // Nuevos listeners para el flujo de pago
+            proceedToCheckoutButton.addEventListener('click', proceedToCheckout);
+            backToCartButton.addEventListener('click', () => switchModalView('cart'));
+
+            // Cerrar modal haciendo click fuera del contenido (en el overlay)
+            cartModal.addEventListener('click', (e) => {
+                if (e.target === cartModal) {
+                    toggleCartModal();
+                }
+            });
+
+            // Re-exportar funciones para que sean accesibles desde el HTML (como en onchange)
+            window.updateQuantity = updateQuantity;
+        };
+
+    </script>
+
+</body>
+</html>
